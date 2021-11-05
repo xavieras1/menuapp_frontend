@@ -1,5 +1,5 @@
 const express = require('express');
-const connectHistory = require('connect-history-api-fallback')
+const connectHistory = require('connect-history-api-fallback');
 const serveStatic = require("serve-static")
 const path = require('path');
 app = express();
