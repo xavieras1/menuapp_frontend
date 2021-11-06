@@ -11,7 +11,7 @@ app.use(history({
 }));
 
 app.get(/.*/, function (req, res) {
-    res.render(path.join(__dirname + 'dist/index.html'));
+    res.render(path.join(__dirname + '/dist/index.html'));
 });
 
 const port = process.env.PORT || 3000;
