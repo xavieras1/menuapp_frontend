@@ -5,6 +5,7 @@ import About from '../views/About.vue'
 import Product from '../views/Product.vue'
 import Location from '../views/Location.vue'
 import Search from '../views/Search.vue'
+import Cart from '../views/Cart.vue'
 
 const routes = [
   {
@@ -35,6 +36,11 @@ const routes = [
     path: '/search',
     name: 'Search',
     component: Search
+  },
+  {
+    path: '/cart',
+    name: 'Cart',
+    component: Cart
   }
 ]
 
