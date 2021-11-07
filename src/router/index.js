@@ -4,6 +4,7 @@ import About from '../views/About.vue'
 
 import Product from '../views/Product.vue'
 import Location from '../views/Location.vue'
+import Search from '../views/Search.vue'
 
 const routes = [
   {
@@ -29,6 +30,11 @@ const routes = [
     path: '/:location_slug',
     name: 'Location',
     component: Location
+  },
+  {
+    path: '/search',
+    name: 'Search',
+    component: Search
   }
 ]
 
