@@ -5,7 +5,10 @@
                 <h2 class="is-size-2 has-text-centered">{{ location.name }}</h2>
             </div>
 
-            
+            <ProductBox 
+                v-for="product in location.products"
+                v-bind:key="product.id"
+                v-bind:product="product" />        
         </div>
     </div>
 </template>
@@ -13,11 +16,12 @@
 <script>
 import axios from 'axios'
 import { toast } from 'bulma-toast'
+import ProductBox from '@/components/ProductBox'
 
 export default {
     name: 'Location',
     components: {
-        
+        ProductBox
     },
     data() {
         return {

@@ -6,7 +6,7 @@
             Welcome to Menu Angel & Annie
         </p>
         <p class="subtitle">
-            The best jacket store online
+            Weekly Menues
         </p>
       </div>
     </section>
@@ -16,21 +16,10 @@
         <h2 class="is-size-2 has-text-centered">Latest products</h2>
       </div>
 
-      <div 
-        class="column is-3" 
+      <ProductBox 
         v-for="product in latestProducts"
         v-bind:key="product.id"
-      >
-        <div class="box">
-          <figure class="image mb-4">
-            <img :src="product.get_thumbnail">
-          </figure>
-
-          <h3 class="is-size-4">{{ product.name}}</h3>
-          
-          <router-link v-bind:to="product.get_absolute_url" class="button is-dark mt-4">View details</router-link>
-        </div>
-      </div>
+        v-bind:product="product" />
     </div>
   </div>
 </template>
@@ -40,6 +29,7 @@
 //import HelloWorld from '@/components/HelloWorld.vue'
 
 import axios from 'axios'
+import ProductBox from '@/components/ProductBox'
 
 export default {
   name: 'Home',
@@ -49,10 +39,11 @@ export default {
     }
   },
   components: {
+    ProductBox
   },
   mounted() {
     this.getLatestProducts()
-    document.title = 'Home | Djackets'
+    document.title = 'Home | Menu A&A'
   },
   methods: {
     async  getLatestProducts() {
@@ -71,11 +62,3 @@ export default {
 
 }
 </script>
-
-<style scoped>
-  .image{
-    margin-top: -1.25rem;
-    margin-left: -1.25rem;
-    margin-right: -1.25rem;
-  }
-</style>
