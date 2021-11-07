@@ -3,6 +3,7 @@ import Home from '../views/Home.vue'
 import About from '../views/About.vue'
 
 import Product from '../views/Product.vue'
+import Location from '../views/Location.vue'
 
 const routes = [
   {
@@ -24,6 +25,11 @@ const routes = [
     name: 'Product',
     component: Product
   },
+  {
+    path: '/:location_slug',
+    name: 'Location',
+    component: Location
+  }
 ]
 
 const router = createRouter({

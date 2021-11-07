@@ -43,21 +43,21 @@ export default {
         this.getProduct() 
     },
     methods: {
-        /*async */getProduct() {
-            //this.$store.commit('setIsLoading', true)
+        async getProduct() {
+            this.$store.commit('setIsLoading', true)
             const location_slug = this.$route.params.location_slug
             const product_slug = this.$route.params.product_slug
-            /*await */axios
+            await axios
                 .get(`https://a-y-a-menu.herokuapp.com/api/v1/products/${location_slug}/${product_slug}`)
                 .then(response => {
                     this.product = response.data
-                    //document.title = this.product.name + ' | Djackets'
+                    document.title = this.product.name + ' | MENU A&A'
                 })
                 .catch(error => {
                     console.log(error)
                 })
             
-            //this.$store.commit('setIsLoading', false)
+            this.$store.commit('setIsLoading', false)
         },
         addToCart() {
             if (isNaN(this.quantity) || this.quantity < 1) {

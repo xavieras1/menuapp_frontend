@@ -55,9 +55,9 @@ export default {
     document.title = 'Home | Djackets'
   },
   methods: {
-    /*async */ getLatestProducts() {
-      //this.$store.commit('setIsLoading', true)
-      /*await */axios
+    async  getLatestProducts() {
+      this.$store.commit('setIsLoading', true)
+      await axios
         .get('https://a-y-a-menu.herokuapp.com/api/v1/latest-products/')
         .then(response => {
           this.latestProducts = response.data
@@ -65,7 +65,7 @@ export default {
         .catch(error => {
           console.log(error)
         })
-      //this.$store.commit('setIsLoading', false)
+      this.$store.commit('setIsLoading', false)
     }
   }
 
