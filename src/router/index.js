@@ -11,6 +11,7 @@ import Cart from '../views/Cart.vue'
 import SignUp from '../views/SignUp.vue'
 import LogIn from '../views/LogIn.vue'
 import MyAccount from '../views/MyAccount.vue'
+import Meal from '../views/Meal.vue'
 
 const routes = [
   {
@@ -54,6 +55,11 @@ const routes = [
     meta: {
         requireLogin: true
     }
+  },
+  {
+    path: '/meal/:meal_slug',
+    name: 'meal',
+    component: Meal
   },
   {
     path: '/:location_slug/:product_slug',
