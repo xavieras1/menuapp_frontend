@@ -16,11 +16,15 @@
 
                 <div class="field has-addons mt-6">
                     <div class="control">
+                        <a class="button is-dark" @click="addToCart()">Add to cart</a>
+                    </div>
+                    
+                    <div class="control">
                         <input type="number" class="input" min="1" v-model="quantity">
                     </div>
 
                     <div class="control">
-                        <a class="button is-dark" @click="addToCart()">Add to cart</a>
+                        <a class="button is-dark" @click="addToPantry()">Add to pantry</a>
                     </div>
                 </div>
             </div>
@@ -70,6 +74,24 @@ export default {
             this.$store.commit('addToCart', item)
             toast({
                 message: 'The product was added to the cart',
+                type: 'is-success',
+                dismissible: true,
+                pauseOnHover: true,
+                duration: 2000,
+                position: 'bottom-right',
+            })
+        },
+        addToPantry() {
+            if (isNaN(this.quantity) || this.quantity < 1) {
+                this.quantity = 1
+            }
+            const item = {
+                product: this.product,
+                quantity: this.quantity
+            }
+            this.$store.commit('addToPantry', item)
+            toast({
+                message: 'The product was added to the pantry',
                 type: 'is-success',
                 dismissible: true,
                 pauseOnHover: true,
