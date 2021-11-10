@@ -13,20 +13,18 @@
 
     <div class="columns is-multiline">
       <div class="column is-12">
-        <h2 class="is-size-2 has-text-centered">Latest products</h2>
+        <h2 class="is-size-2 has-text-centered">Latest meals</h2>
       </div>
 
       <ProductBox 
-        v-for="product in latestProducts"
-        v-bind:key="product.id"
-        v-bind:product="product" />
+        v-for="meal in latestMeals"
+        v-bind:key="meal.id"
+        v-bind:product="meal" />
     </div>
   </div>
 </template>
 
 <script>
-// @ is an alias to /src
-//import HelloWorld from '@/components/HelloWorld.vue'
 
 import axios from 'axios'
 import ProductBox from '@/components/ProductBox'
@@ -35,23 +33,23 @@ export default {
   name: 'Home',
   data() {
     return {
-      latestProducts: []
+      latestMeals: []
     }
   },
   components: {
     ProductBox
   },
   mounted() {
-    this.getLatestProducts()
+    this.getLatestMeals()
     document.title = 'Home | Menu A&A'
   },
   methods: {
-    async  getLatestProducts() {
+    async  getLatestMeals() {
       this.$store.commit('setIsLoading', true)
       await axios
-        .get('https://a-y-a-menu.herokuapp.com/api/v1/latest-products/')
+        .get('https://a-y-a-menu.herokuapp.com/api/v1/latest-meals/')
         .then(response => {
-          this.latestProducts = response.data
+          this.latestMeals = response.data
         })
         .catch(error => {
           console.log(error)
