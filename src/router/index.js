@@ -12,6 +12,7 @@ import SignUp from '../views/SignUp.vue'
 import LogIn from '../views/LogIn.vue'
 import MyAccount from '../views/MyAccount.vue'
 import Meal from '../views/Meal.vue'
+import Pantry from '../views/Pantry.vue'
 
 const routes = [
   {
@@ -37,6 +38,11 @@ const routes = [
     path: '/cart',
     name: 'Cart',
     component: Cart
+  },
+  {
+    path: '/pantry',
+    name: 'Pantry',
+    component: Pantry
   },
   {
     path: '/sign-up',
