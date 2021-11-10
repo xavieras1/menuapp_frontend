@@ -3,7 +3,10 @@ import { createStore } from 'vuex'
 export default createStore({
   state: {
     cart: {
-        items: [],
+      items: [],
+    },
+    pantry: {
+      items: [],
     },
     isAuthenticated: false,
     token: '',
@@ -18,12 +21,22 @@ export default createStore({
       }
 
       if (localStorage.getItem('token')) {
-          state.token = localStorage.getItem('token')
-          state.isAuthenticated = true
+        state.token = localStorage.getItem('token')
+        state.isAuthenticated = true
       } else {
-          state.token = ''
-          state.isAuthenticated = false
+        state.token = ''
+        state.isAuthenticated = false
       } 
+    },
+    addToPantry(state, item) {
+      const exists = state.pantry.items.filter(i => i.product.id === item.product.id)
+      if (exists.length) {
+        exists[0].quantity = parseInt(exists[0].quantity) + parseInt(item.quantity)
+      } else {
+        state.pantry.items.push(item)
+      }
+
+      localStorage.setItem('pantry', JSON.stringify(state.pantry))
     },
     addToCart(state, item) {
       const exists = state.cart.items.filter(i => i.product.id === item.product.id)
@@ -35,7 +48,7 @@ export default createStore({
 
       localStorage.setItem('cart', JSON.stringify(state.cart))
     },
-    addMealToCart(state, item) {
+    addMealToCart(item) {
       const products = item.meal.items
       for (let index = 0; index < products.length; index++) {
         const product = products[index];
@@ -50,12 +63,12 @@ export default createStore({
       state.isLoading = status
     },
     setToken(state, token) {
-        state.token = token
-        state.isAuthenticated = true
+      state.token = token
+      state.isAuthenticated = true
     },  
     removeToken(state) {
-        state.token = ''
-        state.isAuthenticated = false
+      state.token = ''
+      state.isAuthenticated = false
     }
   },
   actions: {

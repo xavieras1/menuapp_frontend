@@ -40,6 +40,11 @@
             <div class="buttons">
               <router-link to="/log-in" class="button is-light">Log in</router-link>
 
+              <router-link to="/pantry" class="button is-success">
+                <span class="icon"><i class="fas fa-warehouse"></i></span>
+                <span>Pantry ({{ pantryTotalLength }})</span>
+              </router-link>
+
               <router-link to="/cart" class="button is-success">
                 <span class="icon"><i class="fas fa-shopping-cart"></i></span>
                 <span>Cart ({{ cartTotalLength }})</span>
@@ -72,6 +77,9 @@ export default {
       showMobileMenu: false,
       cart: {
         items: []
+      },
+      pantry: {
+        items: []
       }
     }
   },
@@ -80,22 +88,30 @@ export default {
 
     const token = this.$store.state.token
     if (token) {
-        axios.defaults.headers.common['Authorization'] = "Token " + token
+      axios.defaults.headers.common['Authorization'] = "Token " + token
     } else {
-        axios.defaults.headers.common['Authorization'] = ""
+      axios.defaults.headers.common['Authorization'] = ""
     }
     
   },
   mounted() {
     this.cart = this.$store.state.cart
+    this.pantry = this.$store.state.pantry
   },
   computed: {
       cartTotalLength() {
-          let totalLength = 0
-          for (let i = 0; i < this.cart.items.length; i++) {
-              totalLength += this.cart.items[i].quantity
-          }
-          return totalLength
+        let totalLength = 0
+        for (let i = 0; i < this.cart.items.length; i++) {
+          totalLength += this.cart.items[i].quantity
+        }
+        return totalLength
+      },
+      pantryTotalLength() {
+        let totalLength = 0
+        for (let i = 0; i < this.pantry.items.length; i++) {
+          totalLength += this.pantry.items[i].quantity
+        }
+        return totalLength
       }
   }
 }
