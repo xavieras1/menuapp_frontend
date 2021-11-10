@@ -35,6 +35,17 @@ export default createStore({
 
       localStorage.setItem('cart', JSON.stringify(state.cart))
     },
+    addMealToCart(state, item) {
+      const products = item.meal.items
+      for (let index = 0; index < products.length; index++) {
+        const product = products[index];
+        const element = {
+          product: product.product,
+          quantity: item.quantity * product.quantity
+        }
+        this.commit('addToCart', element) 
+      }
+    },
     setIsLoading(state, status) {
       state.isLoading = status
     },

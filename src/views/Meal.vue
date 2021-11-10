@@ -83,7 +83,7 @@ export default {
                 meal: this.meal,
                 quantity: this.quantity
             }
-            this.$store.commit('addToCart', item)
+            this.$store.commit('addMealToCart', item)
             toast({
                 message: 'The products of the meal were added to the cart',
                 type: 'is-success',
