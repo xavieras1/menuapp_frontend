@@ -8,6 +8,9 @@ export default createStore({
     pantry: {
       items: [],
     },
+    schedule: {
+      items: [],
+    },
     isAuthenticated: false,
     token: '',
     isLoading: false
@@ -47,6 +50,16 @@ export default createStore({
       }
 
       localStorage.setItem('cart', JSON.stringify(state.cart))
+    },
+    addToSchedule(state, item) {
+      const exists = state.schedule.items.filter(i => i.meal.id === item.meal.id)
+      if (exists.length) {
+        exists[0].quantity = parseInt(exists[0].quantity) + parseInt(item.quantity)
+      } else {
+        state.schedule.items.push(item)
+      }
+
+      localStorage.setItem('schedule', JSON.stringify(state.schedule))
     },
     addMealToCart(item) {
       const products = item.meal.items

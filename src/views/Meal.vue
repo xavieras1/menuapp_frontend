@@ -22,7 +22,7 @@
                     </div>
 
                     <div class="control">
-                        <a class="button is-dark" @click="addToCart()">Add to cart</a>
+                        <a class="button is-dark" @click="addToSchedule()">Add to Schedule</a>
                     </div>
                 </div>
             </div>
@@ -86,6 +86,26 @@ export default {
             this.$store.commit('addMealToCart', item)
             toast({
                 message: 'The products of the meal were added to the cart',
+                type: 'is-success',
+                dismissible: true,
+                pauseOnHover: true,
+                duration: 2000,
+                position: 'bottom-right',
+            })
+        },
+        addToSchedule() {
+            if (isNaN(this.quantity) || this.quantity < 1) {
+                this.quantity = 1
+            }
+            const item = {
+                meal: this.meal,
+                quantity: this.quantity,
+                person: "Angel",
+                day: "Monday"
+            }
+            this.$store.commit('addToSchedule', item)
+            toast({
+                message: 'The meal were added to the schedule',
                 type: 'is-success',
                 dismissible: true,
                 pauseOnHover: true,

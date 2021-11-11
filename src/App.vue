@@ -45,6 +45,11 @@
                 <span>Pantry ({{ pantryTotalLength }})</span>
               </router-link>
 
+              <router-link to="/schedule" class="button is-success">
+                <span class="icon"><i class="fas fa-calendar-alt"></i></span>
+                <span>Schedule ({{ scheduleTotalLength }})</span>
+              </router-link>
+
               <router-link to="/cart" class="button is-success">
                 <span class="icon"><i class="fas fa-shopping-cart"></i></span>
                 <span>Cart ({{ cartTotalLength }})</span>
@@ -80,6 +85,9 @@ export default {
       },
       pantry: {
         items: []
+      },
+      schedule: {
+        items: []
       }
     }
   },
@@ -97,6 +105,7 @@ export default {
   mounted() {
     this.cart = this.$store.state.cart
     this.pantry = this.$store.state.pantry
+    this.schedule = this.$store.state.schedule
   },
   computed: {
       cartTotalLength() {
@@ -110,6 +119,13 @@ export default {
         let totalLength = 0
         for (let i = 0; i < this.pantry.items.length; i++) {
           totalLength += this.pantry.items[i].quantity
+        }
+        return totalLength
+      },
+      scheduleTotalLength() {
+        let totalLength = 0
+        for (let i = 0; i < this.schedule.items.length; i++) {
+          totalLength += this.schedule.items[i].quantity
         }
         return totalLength
       }
