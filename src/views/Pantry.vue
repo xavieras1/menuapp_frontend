@@ -34,8 +34,6 @@
                 <strong>{{ pantryTotalLength }} items</strong>, 
 
                 <hr>
-
-                <router-link to="/pantry/checkout" class="button is-dark">Proceed to checkout</router-link>
             </div>
 
         </div>
