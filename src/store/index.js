@@ -52,9 +52,13 @@ export default createStore({
       localStorage.setItem('cart', JSON.stringify(state.cart))
     },
     addToSchedule(state, item) {
-      const exists = state.schedule.items.filter(i => i.meal.id === item.meal.id)
+      const exists = state.schedule.items.filter(i => (i.meal.id === item.meal.id && i.day === item.day && i.shift === item.shift ))
       if (exists.length) {
-        exists[0].quantity = parseInt(exists[0].quantity) + parseInt(item.quantity)
+        if(exists[0].person === item.person){
+          exists[0].quantity = parseInt(exists[0].quantity) + parseInt(item.quantity)
+        }else if(exists[0].person.length === item.person.length && exists[0].quantity === item.quantity ){
+          exists[0].person.push(item.person[0])
+        }
       } else {
         state.schedule.items.push(item)
       }
@@ -63,8 +67,7 @@ export default createStore({
     },
     addMealToCart(item) {
       const products = item.meal.items
-      for (let index = 0; index < products.length; index++) {
-        const product = products[index];
+      for (const product in products) {
         const element = {
           product: product.product,
           quantity: item.quantity * product.quantity

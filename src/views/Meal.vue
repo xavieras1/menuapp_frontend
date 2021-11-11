@@ -16,15 +16,51 @@
 
                 <p v-if="meal.items"><strong >Products: </strong>{{ meal.items.length }}</p>
 
-                <div class="field has-addons mt-6">
-                    <div class="control">
-                        <input type="number" class="input" min="1" v-model="quantity">
-                    </div>
-
-                    <div class="control">
-                        <a class="button is-dark" @click="addToSchedule()">Add to Schedule</a>
+                <div class="control mt-6">
+                    <div class="person-selector">
+                        <input type="checkbox" id="angel" value="Angel" v-model="person" >
+                        <label for="angel">Ang</label>
+                        <input type="checkbox" id="annie" value="Annie" v-model="person">
+                        <label for="annie">Ann</label>
                     </div>
                 </div>
+
+                <div class="control mt-6">
+                    <div class="shift-selector">
+                        <input type="radio" id="day" value="Día" v-model="shift" >
+                        <label for="day">Día</label>
+                        <input type="radio" id="night" value="Noche" v-model="shift">
+                        <label for="night">Noc</label>
+                    </div>
+                </div>
+
+                <div class="control mt-6">
+                    <div class="weekDays-selector">
+                        <input type="checkbox" id="monday" value="Monday" v-model="weekday" >
+                        <label for="monday">M</label>
+                        <input type="checkbox" id="tuesday" value="Tuesday" v-model="weekday">
+                        <label for="tuesday">T</label>
+                        <input type="checkbox" id="wednesday" value="Wednesday" v-model="weekday">
+                        <label for="wednesday">W</label>
+                        <input type="checkbox" id="thursday" value="Thursday" v-model="weekday">
+                        <label for="thursday">T</label>
+                        <input type="checkbox" id="friday" value="Friday" v-model="weekday">
+                        <label for="friday">F</label>
+                        <input type="checkbox" id="saturday" value="Saturday" v-model="weekday">
+                        <label for="saturday">S</label>
+                        <input type="checkbox" id="sunday" value="Sunday" v-model="weekday">
+                        <label for="sunday">S</label>
+                    </div>
+                </div>
+
+                <div class="control">
+                    <input type="number" class="input" min="1" v-model="quantity">
+                </div>
+                
+                <div class="control">
+                    <a class="button is-dark" @click="addToSchedule()">Add to Schedule</a>
+                </div>
+
             </div>
         </div>
 
@@ -50,7 +86,10 @@ export default {
     data() {
         return {
             meal: {},
-            quantity: 1
+            quantity: 1,
+            person: [],
+            weekday: [],
+            shift: ""
         }
     },
     components: {
@@ -97,13 +136,25 @@ export default {
             if (isNaN(this.quantity) || this.quantity < 1) {
                 this.quantity = 1
             }
-            const item = {
-                meal: this.meal,
-                quantity: this.quantity,
-                person: "Angel",
-                day: "Monday"
+            if (!this.person.length) {
+                this.person = ['Angel']
             }
-            this.$store.commit('addToSchedule', item)
+            if (!this.weekday.length) {
+                this.weekday = ['monday']
+            }
+            if (this.shift==="") {
+                this.shift = 'Día'
+            }
+            for (const day in this.weekday) {
+                const item = {
+                    meal: this.meal,
+                    quantity: this.quantity,
+                    person: this.person,
+                    day: this.weekday[day],
+                    shift: this.shift
+                }
+                this.$store.commit('addToSchedule', item)
+            }
             toast({
                 message: 'The meal were added to the schedule',
                 type: 'is-success',
@@ -116,3 +167,26 @@ export default {
     }
 }
 </script>
+
+<style lang="scss">
+.weekDays-selector input, .person-selector input, .shift-selector input {
+  display: none!important;
+}
+
+.weekDays-selector input[type=checkbox] + label, .person-selector input[type=checkbox] + label, .shift-selector input[type=radio] + label {
+  display: inline-block;
+  border-radius: 6px;
+  background: #dddddd;
+  height: 40px;
+  width: 30px;
+  margin-right: 3px;
+  line-height: 40px;
+  text-align: center;
+  cursor: pointer;
+}
+
+.weekDays-selector input[type=checkbox]:checked + label, .person-selector input[type=checkbox]:checked + label, .shift-selector input[type=radio]:checked + label {
+  background: #48c78e;
+  color: #ffffff;
+}
+</style>

@@ -125,7 +125,7 @@ export default {
       scheduleTotalLength() {
         let totalLength = 0
         for (let i = 0; i < this.schedule.items.length; i++) {
-          totalLength += this.schedule.items[i].quantity
+          totalLength += this.schedule.items[i].quantity * this.schedule.items[i].person.length
         }
         return totalLength
       }

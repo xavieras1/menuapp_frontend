@@ -11,6 +11,7 @@
                         <tr>
                             <th>Meal</th>
                             <th>Quantity</th>
+                            <th>Shift</th>
                             <th>Day</th>
                             <th>Person</th>
                             <th></th>
@@ -32,7 +33,7 @@
             <div class="column is-12 box">
                 <h2 class="subtitle">Summary</h2>
 
-                <strong>${{ scheduleTotalPrice.toFixed(2) }}</strong>, {{ scheduleTotalLength }} items
+                <strong>{{ scheduleTotalLength }} items</strong>, {{ scheduleTotalPrice }} products
 
                 <hr>
 
@@ -70,12 +71,12 @@ export default {
     computed: {
         scheduleTotalLength() {
             return this.schedule.items.reduce((acc, curVal) => {
-                return acc += curVal.quantity
+                return acc += curVal.quantity * curVal.person.length
             }, 0)
         },
         scheduleTotalPrice() {
             return this.schedule.items.reduce((acc, curVal) => {
-                return acc += curVal.quantity
+                return acc += curVal.quantity * curVal.person.length * curVal.meal.items.length
             }, 0)
         }
     }

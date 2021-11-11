@@ -6,6 +6,7 @@
             <a @click="decrementQuantity(item)">-</a>
             <a @click="incrementQuantity(item)">+</a>
         </td>
+        <td>{{ item.shift }}</td>
         <td>{{ item.day }}</td>
         <td>{{ item.person }}</td>
         <td><button class="delete" @click="removeFromSchedule(item)"></button></td>
