@@ -16,50 +16,53 @@
 
                 <p v-if="meal.items"><strong >Products: </strong>{{ meal.items.length }}</p>
 
-                <div class="control mt-6">
-                    <div class="person-selector">
-                        <input type="checkbox" id="angel" value="Angel" v-model="person" >
-                        <label for="angel">Ang</label>
-                        <input type="checkbox" id="annie" value="Annie" v-model="person">
-                        <label for="annie">Ann</label>
-                    </div>
-                </div>
+                <template v-if="$store.state.isAuthenticated">
 
-                <div class="control mt-6">
-                    <div class="shift-selector">
-                        <input type="radio" id="day" value="Día" v-model="shift" >
-                        <label for="day">Día</label>
-                        <input type="radio" id="night" value="Noche" v-model="shift">
-                        <label for="night">Noc</label>
+                    <div class="control mt-6">
+                        <div class="person-selector">
+                            <input type="checkbox" id="angel" value="Angel" v-model="person" >
+                            <label for="angel">Ang</label>
+                            <input type="checkbox" id="annie" value="Annie" v-model="person">
+                            <label for="annie">Ann</label>
+                        </div>
                     </div>
-                </div>
 
-                <div class="control mt-6">
-                    <div class="weekDays-selector">
-                        <input type="checkbox" id="monday" value="Monday" v-model="weekday" >
-                        <label for="monday">M</label>
-                        <input type="checkbox" id="tuesday" value="Tuesday" v-model="weekday">
-                        <label for="tuesday">T</label>
-                        <input type="checkbox" id="wednesday" value="Wednesday" v-model="weekday">
-                        <label for="wednesday">W</label>
-                        <input type="checkbox" id="thursday" value="Thursday" v-model="weekday">
-                        <label for="thursday">T</label>
-                        <input type="checkbox" id="friday" value="Friday" v-model="weekday">
-                        <label for="friday">F</label>
-                        <input type="checkbox" id="saturday" value="Saturday" v-model="weekday">
-                        <label for="saturday">S</label>
-                        <input type="checkbox" id="sunday" value="Sunday" v-model="weekday">
-                        <label for="sunday">S</label>
+                    <div class="control mt-6">
+                        <div class="shift-selector">
+                            <input type="radio" id="day" value="Día" v-model="shift" >
+                            <label for="day">Día</label>
+                            <input type="radio" id="night" value="Noche" v-model="shift">
+                            <label for="night">Noc</label>
+                        </div>
                     </div>
-                </div>
 
-                <div class="control">
-                    <input type="number" class="input" min="1" v-model="quantity">
-                </div>
-                
-                <div class="control">
-                    <a class="button is-dark" @click="addToSchedule()">Add to Schedule</a>
-                </div>
+                    <div class="control mt-6">
+                        <div class="weekDays-selector">
+                            <input type="checkbox" id="monday" value="Monday" v-model="weekday" >
+                            <label for="monday">M</label>
+                            <input type="checkbox" id="tuesday" value="Tuesday" v-model="weekday">
+                            <label for="tuesday">T</label>
+                            <input type="checkbox" id="wednesday" value="Wednesday" v-model="weekday">
+                            <label for="wednesday">W</label>
+                            <input type="checkbox" id="thursday" value="Thursday" v-model="weekday">
+                            <label for="thursday">T</label>
+                            <input type="checkbox" id="friday" value="Friday" v-model="weekday">
+                            <label for="friday">F</label>
+                            <input type="checkbox" id="saturday" value="Saturday" v-model="weekday">
+                            <label for="saturday">S</label>
+                            <input type="checkbox" id="sunday" value="Sunday" v-model="weekday">
+                            <label for="sunday">S</label>
+                        </div>
+                    </div>
+
+                    <div class="control">
+                        <input type="number" class="input" min="1" v-model="quantity">
+                    </div>
+                    
+                    <div class="control">
+                        <a class="button is-dark" @click="addToSchedule()">Add to Schedule</a>
+                    </div>
+                </template>
 
             </div>
         </div>

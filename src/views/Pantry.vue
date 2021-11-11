@@ -59,6 +59,7 @@ export default {
         }
     },
     mounted() {
+        document.title = 'Pantry | Djackets'
         this.pantry = this.$store.state.pantry
     },
     methods: {

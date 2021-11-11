@@ -12,21 +12,23 @@
             </div>
 
             <div class="column is-3">
-                <h2 class="subtitle">Information</h2>
+                <!--h2 class="subtitle">Information</h2-->
 
-                <div class="field has-addons mt-6">
-                    <div class="control">
-                        <a class="button is-dark" @click="addToCart()">Add to cart</a>
-                    </div>
-                    
-                    <div class="control">
-                        <input type="number" class="input" min="1" v-model="quantity">
-                    </div>
+                <template v-if="$store.state.isAuthenticated">
+                    <div class="field has-addons mt-6">
+                        <div class="control">
+                            <a class="button is-dark" @click="addToCart()">Add to cart</a>
+                        </div>
+                        
+                        <div class="control">
+                            <input type="number" class="input" min="1" v-model="quantity">
+                        </div>
 
-                    <div class="control">
-                        <a class="button is-dark" @click="addToPantry()">Add to pantry</a>
+                        <div class="control">
+                            <a class="button is-dark" @click="addToPantry()">Add to pantry</a>
+                        </div>
                     </div>
-                </div>
+                </template>
             </div>
         </div>
     </div>

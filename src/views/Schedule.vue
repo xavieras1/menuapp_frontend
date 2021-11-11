@@ -61,6 +61,7 @@ export default {
         }
     },
     mounted() {
+        document.title = 'Schedule | Djackets'
         this.schedule = this.$store.state.schedule
     },
     methods: {

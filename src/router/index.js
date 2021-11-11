@@ -38,17 +38,26 @@ const routes = [
   {
     path: '/cart',
     name: 'Cart',
-    component: Cart
+    component: Cart,
+    meta: {
+        requireLogin: true
+    }
   },
   {
     path: '/pantry',
     name: 'Pantry',
-    component: Pantry
+    component: Pantry,
+    meta: {
+        requireLogin: true
+    }
   },
   {
     path: '/schedule',
     name: 'Schedule',
-    component: Schedule
+    component: Schedule,
+    meta: {
+        requireLogin: true
+    }
   },
   {
     path: '/sign-up',
