@@ -11,17 +11,17 @@
                         <tr>
                             <th>Product</th>
                             <th>Quantity</th>
-                            <th>Total</th>
                             <th></th>
                         </tr>
                     </thead>
  
                     <tbody>
-                        <CartItem
+                        <ListItem
                             v-for="item in pantry.items"
                             v-bind:key="item.product.id"
                             v-bind:initialItem="item"
-                            v-on:removeFromCart="removeFromPantry" />
+                            v-on:removeFromList="removeFromPantry"
+                            v-on:updateList="updatePantry" />
                     </tbody>
                 </table>
 
@@ -31,7 +31,7 @@
             <div class="column is-12 box">
                 <h2 class="subtitle">Summary</h2>
 
-                <strong>${{ pantryTotalPrice.toFixed(2) }}</strong>, {{ pantryTotalLength }} items
+                <strong>{{ pantryTotalLength }} items</strong>, 
 
                 <hr>
 
@@ -44,12 +44,12 @@
 
 <script>
 import axios from 'axios'
-import CartItem from '@/components/CartItem.vue'
+import ListItem from '@/components/ListItem.vue'
 
 export default {
     name: 'Pantry',
     components: {
-        CartItem
+        ListItem
     },
     data() {
         return {
@@ -64,15 +64,13 @@ export default {
     methods: {
         removeFromPantry(item) {
             this.pantry.items = this.pantry.items.filter(i => i.product.id !== item.product.id)
+        },
+        updatePantry() {
+            localStorage.setItem('pantry', JSON.stringify(this.$store.state.pantry))
         }
     },
     computed: {
         pantryTotalLength() {
-            return this.pantry.items.reduce((acc, curVal) => {
-                return acc += curVal.quantity
-            }, 0)
-        },
-        pantryTotalPrice() {
             return this.pantry.items.reduce((acc, curVal) => {
                 return acc += curVal.quantity
             }, 0)

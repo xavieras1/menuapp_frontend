@@ -11,17 +11,17 @@
                         <tr>
                             <th>Product</th>
                             <th>Quantity</th>
-                            <th>Total</th>
                             <th></th>
                         </tr>
                     </thead>
  
                     <tbody>
-                        <CartItem
+                        <ListItem
                             v-for="item in cart.items"
                             v-bind:key="item.product.id"
                             v-bind:initialItem="item"
-                            v-on:removeFromCart="removeFromCart" />
+                            v-on:removeFromList="removeFromCart"
+                            v-on:updateList="updateCart" />
                     </tbody>
                 </table>
 
@@ -31,7 +31,7 @@
             <div class="column is-12 box">
                 <h2 class="subtitle">Summary</h2>
 
-                <strong>${{ cartTotalPrice.toFixed(2) }}</strong>, {{ cartTotalLength }} items
+                <strong>{{ cartTotalLength }} items</strong>, 
 
                 <hr>
 
@@ -44,12 +44,12 @@
 
 <script>
 import axios from 'axios'
-import CartItem from '@/components/CartItem.vue'
+import ListItem from '@/components/ListItem.vue'
 
 export default {
     name: 'Cart',
     components: {
-        CartItem
+        ListItem
     },
     data() {
         return {
@@ -64,15 +64,13 @@ export default {
     methods: {
         removeFromCart(item) {
             this.cart.items = this.cart.items.filter(i => i.product.id !== item.product.id)
+        },
+        updateCart() {
+            localStorage.setItem('cart', JSON.stringify(this.$store.state.cart))
         }
     },
     computed: {
         cartTotalLength() {
-            return this.cart.items.reduce((acc, curVal) => {
-                return acc += curVal.quantity
-            }, 0)
-        },
-        cartTotalPrice() {
             return this.cart.items.reduce((acc, curVal) => {
                 return acc += curVal.quantity
             }, 0)
