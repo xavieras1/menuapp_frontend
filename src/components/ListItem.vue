@@ -28,20 +28,14 @@ export default {
                 this.$emit('removeFromList', item)
             }
             this.$emit('updateList')
-            //this.updateCart()
         },
         incrementQuantity(item) {
             item.quantity += 1
             this.$emit('updateList')
-            //this.updateCart()
-        },
-        updateCart() {
-            localStorage.setItem('cart', JSON.stringify(this.$store.state.cart))
         },
         removeFromCart(item) {
             this.$emit('removeFromList', item)
             this.$emit('updateList')
-            //this.updateCart()
         },
     }
 }

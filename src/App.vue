@@ -40,7 +40,7 @@
             <div class="buttons">
 
               <template v-if="$store.state.isAuthenticated">
-                <router-link to="/my-account" class="button is-light">My account</router-link>
+                <!--router-link to="/my-account" class="button is-light">My account</router-link-->
 
                 <router-link to="/pantry" class="button is-success">
                   <span class="icon"><i class="fas fa-warehouse"></i></span>
@@ -56,6 +56,8 @@
                   <span class="icon"><i class="fas fa-shopping-cart"></i></span>
                   <span>Cart ({{ cartTotalLength }})</span>
                 </router-link>
+
+                <button @click="logout()" class="button is-danger">Log out</button>
               </template>
 
               <template v-else>
@@ -115,28 +117,38 @@ export default {
     this.pantry = this.$store.state.pantry
     this.schedule = this.$store.state.schedule
   },
+  methods: {
+    logout() {
+      axios.defaults.headers.common["Authorization"] = ""
+      localStorage.removeItem("token")
+      localStorage.removeItem("username")
+      localStorage.removeItem("userid")
+      this.$store.commit('removeToken')
+      this.$router.push('/')
+    }
+  },
   computed: {
-      cartTotalLength() {
-        let totalLength = 0
-        for (let i = 0; i < this.cart.items.length; i++) {
-          totalLength += this.cart.items[i].quantity
-        }
-        return totalLength
-      },
-      pantryTotalLength() {
-        let totalLength = 0
-        for (let i = 0; i < this.pantry.items.length; i++) {
-          totalLength += this.pantry.items[i].quantity
-        }
-        return totalLength
-      },
-      scheduleTotalLength() {
-        let totalLength = 0
-        for (let i = 0; i < this.schedule.items.length; i++) {
-          totalLength += this.schedule.items[i].quantity * this.schedule.items[i].person.length
-        }
-        return totalLength
+    cartTotalLength() {
+      let totalLength = 0
+      for (let i = 0; i < this.cart.items.length; i++) {
+        totalLength += this.cart.items[i].quantity
       }
+      return totalLength
+    },
+    pantryTotalLength() {
+      let totalLength = 0
+      for (let i = 0; i < this.pantry.items.length; i++) {
+        totalLength += this.pantry.items[i].quantity
+      }
+      return totalLength
+    },
+    scheduleTotalLength() {
+      let totalLength = 0
+      for (let i = 0; i < this.schedule.items.length; i++) {
+        totalLength += this.schedule.items[i].quantity * this.schedule.items[i].person.length
+      }
+      return totalLength
+    }
   }
 }
 </script>

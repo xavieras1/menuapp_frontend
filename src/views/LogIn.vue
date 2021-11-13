@@ -46,7 +46,8 @@ export default {
         return {
             username: '',
             password: '',
-            errors: []
+            errors: [],
+            items_list: []
         }
     },
     mounted() {
@@ -68,6 +69,10 @@ export default {
                     
                     axios.defaults.headers.common["Authorization"] = "Token " + token
                     localStorage.setItem("token", token)
+
+                    this.getItemsList()
+                    //this.getSchedule()
+
                     const toPath = this.$route.query.to || '/cart'
                     this.$router.push(toPath)
                 })
@@ -82,6 +87,26 @@ export default {
                         console.log(JSON.stringify(error))
                     }
                 })
+        },
+        async getItemsList() {
+            this.$store.commit('setIsLoading', true)
+            await axios
+                .get('https://a-y-a-menu.herokuapp.com/api/v1/itemslist/')
+                .then(response => {
+                    this.orders = response.data
+                    const cart = this.orders.filter(i => i.type === "Cart")[0] 
+                    const pantry = this.orders.filter(i => i.type === "Pantry")[0] 
+                    cart.items = cart.items?cart.items:[]
+                    pantry.items = pantry.items?cart.items:[]
+                    this.$store.state.cart = cart.items
+                    this.$store.state.pantry = pantry.items
+                    localStorage.setItem('cart', JSON.stringify(cart))
+                    localStorage.setItem('pantry', JSON.stringify(pantry))
+                })
+                .catch(error => {
+                    console.log(error)
+                })
+            this.$store.commit('setIsLoading', false)
         }
     }
 }

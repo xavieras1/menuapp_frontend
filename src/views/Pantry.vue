@@ -57,7 +57,8 @@ export default {
         }
     },
     mounted() {
-        document.title = 'Pantry | Djackets'
+        this.type = 'Pantry'
+        document.title = this.type + ' | Djackets'
         this.pantry = this.$store.state.pantry
     },
     methods: {

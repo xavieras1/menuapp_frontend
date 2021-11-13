@@ -59,7 +59,8 @@ export default {
         }
     },
     mounted() {
-        document.title = 'Cart | Djackets'
+        this.type = 'Cart'
+        document.title = this.type + ' | Djackets'
         this.cart = this.$store.state.cart
     },
     methods: {
@@ -67,7 +68,7 @@ export default {
             this.cart.items = this.cart.items.filter(i => i.product.id !== item.product.id)
         },
         updateCart() {
-            localStorage.setItem('cart', JSON.stringify(this.$store.state.cart))
+            localStorage.setItem('cart', JSON.stringify(this.cart))
         }
     },
     computed: {
