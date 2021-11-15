@@ -1,11 +1,27 @@
 import { createStore } from 'vuex'
+import axios from 'axios'
+
+async function  updateOrderList(order_list) {
+  const data = order_list
+  await axios
+  .post('https://a-y-a-menu.herokuapp.com/api/v1/itemslist/', data)
+  .then(response => {
+    console.log(response)
+  })
+  .catch(error => {
+    this.errors.push('Something went wrong. Please try again')
+    console.log(error)
+  })
+}
 
 export default createStore({
   state: {
     cart: {
+      type: "Cart",
       items: [],
     },
     pantry: {
+      type: "Pantry",
       items: [],
     },
     schedule: {
@@ -21,6 +37,16 @@ export default createStore({
         state.cart = JSON.parse(localStorage.getItem('cart'))
       } else {
         localStorage.setItem('cart', JSON.stringify(state.cart))
+      }
+      if (localStorage.getItem('pantry')) {
+        state.pantry = JSON.parse(localStorage.getItem('pantry'))
+      } else {
+        localStorage.setItem('pantry', JSON.stringify(state.pantry))
+      }
+      if (localStorage.getItem('schedule')) {
+        state.schedule = JSON.parse(localStorage.getItem('schedule'))
+      } else {
+        localStorage.setItem('schedule', JSON.stringify(state.schedule))
       }
 
       if (localStorage.getItem('token')) {
@@ -38,7 +64,7 @@ export default createStore({
       } else {
         state.pantry.items.push(item)
       }
-
+      updateOrderList(state.pantry)
       localStorage.setItem('pantry', JSON.stringify(state.pantry))
     },
     addToCart(state, item) {
@@ -49,7 +75,15 @@ export default createStore({
         state.cart.items.push(item)
       }
 
+      updateOrderList(state.cart)
       localStorage.setItem('cart', JSON.stringify(state.cart))
+    },
+    updateOrderList(state, type) {
+      if (type==='Cart') {
+        updateOrderList(state.cart)
+      }else if (type==='Pantry'){
+        updateOrderList(state.pantry)
+      }
     },
     addToSchedule(state, item) {
       const exists = state.schedule.items.filter(i => (i.meal.id === item.meal.id && i.day === item.day && i.shift === item.shift ))
@@ -90,5 +124,7 @@ export default createStore({
   actions: {
   },
   modules: {
+  },
+  methods:{
   }
 })

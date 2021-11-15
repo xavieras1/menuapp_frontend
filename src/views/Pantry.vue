@@ -52,6 +52,7 @@ export default {
     data() {
         return {
             pantry: {
+                type: "Pantry",
                 items: []
             }
         }
@@ -66,7 +67,8 @@ export default {
             this.pantry.items = this.pantry.items.filter(i => i.product.id !== item.product.id)
         },
         updatePantry() {
-            localStorage.setItem('pantry', JSON.stringify(this.$store.state.pantry))
+            this.$store.commit('updateOrderList', 'Pantry')
+            localStorage.setItem('pantry', JSON.stringify(this.pantry))
         }
     },
     computed: {

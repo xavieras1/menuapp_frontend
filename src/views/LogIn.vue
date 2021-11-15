@@ -98,6 +98,7 @@ export default {
                     const pantry = this.orders.filter(i => i.type === "Pantry")[0] 
                     cart.items = cart.items?cart.items:[]
                     pantry.items = pantry.items?cart.items:[]
+                    console.log(cart)
                     this.$store.state.cart = cart.items
                     this.$store.state.pantry = pantry.items
                     localStorage.setItem('cart', JSON.stringify(cart))

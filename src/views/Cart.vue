@@ -54,6 +54,7 @@ export default {
     data() {
         return {
             cart: {
+                type: "Cart",
                 items: []
             }
         }
@@ -68,6 +69,7 @@ export default {
             this.cart.items = this.cart.items.filter(i => i.product.id !== item.product.id)
         },
         updateCart() {
+            this.$store.commit('updateOrderList', 'Cart')
             localStorage.setItem('cart', JSON.stringify(this.cart))
         }
     },
