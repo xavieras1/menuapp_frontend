@@ -12,6 +12,7 @@ import SignUp from '../views/SignUp.vue'
 import LogIn from '../views/LogIn.vue'
 import MyAccount from '../views/MyAccount.vue'
 import Meal from '../views/Meal.vue'
+import Meals from '../views/Meals.vue'
 import Pantry from '../views/Pantry.vue'
 import Schedule from '../views/Schedule.vue'
 
@@ -58,6 +59,11 @@ const routes = [
     meta: {
         requireLogin: true
     }
+  },
+  {
+    path: '/meals',
+    name: 'Meals',
+    component: Meals
   },
   /*{
     path: '/sign-up',
