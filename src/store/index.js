@@ -25,6 +25,7 @@ export default createStore({
       items: [],
     },
     schedule: {
+      user: 0,
       items: [],
     },
     isAuthenticated: false,

@@ -46,8 +46,7 @@ export default {
         return {
             username: '',
             password: '',
-            errors: [],
-            items_list: []
+            errors: []
         }
     },
     mounted() {
@@ -99,10 +98,27 @@ export default {
                     cart.items = cart.items?cart.items:[]
                     pantry.items = pantry.items?cart.items:[]
                     console.log(cart)
-                    this.$store.state.cart = cart.items
-                    this.$store.state.pantry = pantry.items
+                    this.$store.state.cart.items = cart.items
+                    console.log(this.$store.state.cart)
+                    console.log(pantry)
+                    this.$store.state.pantry.items = pantry.items
+                    console.log(this.$store.state.pantry)
                     localStorage.setItem('cart', JSON.stringify(cart))
                     localStorage.setItem('pantry', JSON.stringify(pantry))
+                })
+                .catch(error => {
+                    console.log(error)
+                })
+            await axios
+                .get('https://a-y-a-menu.herokuapp.com/api/v1/schedule/')
+                .then(response => {
+                    console.log(response)
+                    console.log(response.data[0])
+                    const schedule = response.data[0]
+                    schedule.items = schedule.items?schedule.items:[]
+                    console.log(schedule)
+                    this.$store.state.schedule = schedule
+                    localStorage.setItem('schedule', JSON.stringify(schedule))
                 })
                 .catch(error => {
                     console.log(error)
