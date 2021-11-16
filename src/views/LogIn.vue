@@ -31,7 +31,7 @@
 
                     <hr>
 
-                    Or <router-link to="/sign-up">click here</router-link> to sign up!
+                    <!--Or <router-link to="/sign-up">click here</router-link> to sign up! -->
                 </form>
             </div>
         </div>

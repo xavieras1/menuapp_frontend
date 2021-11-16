@@ -59,11 +59,11 @@ const routes = [
         requireLogin: true
     }
   },
-  {
+  /*{
     path: '/sign-up',
     name: 'SignUp',
     component: SignUp
-  },
+  },*/
   {
     path: '/log-in',
     name: 'LogIn',
