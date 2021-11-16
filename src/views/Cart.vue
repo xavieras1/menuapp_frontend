@@ -14,10 +14,19 @@
                             <th></th>
                         </tr>
                     </thead>
- 
-                    <tbody>
+                    <h1 class="title" v-if="upLength">Up</h1>
+                    <tbody v-if="upLength">
                         <ListItem
-                            v-for="item in cart.items"
+                            v-for="item in up.items"
+                            v-bind:key="item.product.id"
+                            v-bind:initialItem="item"
+                            v-on:removeFromList="removeFromCart"
+                            v-on:updateList="updateCart" />
+                    </tbody>
+                    <h1 class="title" v-if="downLength">Down</h1>
+                    <tbody v-if="downLength">
+                        <ListItem
+                            v-for="item in down.items"
                             v-bind:key="item.product.id"
                             v-bind:initialItem="item"
                             v-on:removeFromList="removeFromCart"
@@ -56,13 +65,22 @@ export default {
             cart: {
                 type: "Cart",
                 items: []
+            },
+            up: {
+                items: []
+            },
+            down: {
+                items: []
             }
+            
         }
     },
     mounted() {
         this.type = 'Cart'
         document.title = this.type + ' | Djackets'
         this.cart = this.$store.state.cart
+        this.up.items = this.cart.items.filter(i => i.product.location === 1)
+        this.down.items = this.cart.items.filter(i => i.product.location === 2)
     },
     methods: {
         removeFromCart(item) {
@@ -78,6 +96,12 @@ export default {
             return this.cart.items.reduce((acc, curVal) => {
                 return acc += curVal.quantity
             }, 0)
+        },
+        upLength() {
+            return this.up.items.length
+        },
+        downLength() {
+            return this.down.items.length
         }
     }
 }
