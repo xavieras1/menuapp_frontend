@@ -61,7 +61,7 @@ export default {
                 password: this.password
             }
             await axios
-                .post("https://a-y-a-menu.herokuapp.com/api/v1/token/login/", formData)
+                .post("/api/v1/token/login/", formData)
                 .then(response => {
                     const token = response.data.auth_token
                     this.$store.commit('setToken', token)
@@ -90,7 +90,7 @@ export default {
         async getItemsList() {
             this.$store.commit('setIsLoading', true)
             await axios
-                .get('https://a-y-a-menu.herokuapp.com/api/v1/itemslist/')
+                .get('/api/v1/itemslist/')
                 .then(response => {
                     this.orders = response.data
                     const cart = this.orders.filter(i => i.type === "Cart")[0] 
@@ -110,7 +110,7 @@ export default {
                     console.log(error)
                 })
             await axios
-                .get('https://a-y-a-menu.herokuapp.com/api/v1/schedule/')
+                .get('/api/v1/schedule/')
                 .then(response => {
                     console.log(response)
                     console.log(response.data[0])

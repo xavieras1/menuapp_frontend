@@ -45,7 +45,7 @@ export default {
             const location_slug = this.$route.params.location_slug
             this.$store.commit('setIsLoading', true)
             axios
-                .get(`https://a-y-a-menu.herokuapp.com/api/v1/products/${location_slug}/`)
+                .get(`/api/v1/products/${location_slug}/`)
                 .then(response => {
                     this.location = response.data
                     document.title = this.location.name + ' | Menu A&A'

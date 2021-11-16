@@ -47,7 +47,7 @@ export default {
     async  getLatestMeals() {
       this.$store.commit('setIsLoading', true)
       await axios
-        .get('https://a-y-a-menu.herokuapp.com/api/v1/latest-meals/')
+        .get('/api/v1/latest-meals/')
         .then(response => {
           this.latestMeals = response.data
         })

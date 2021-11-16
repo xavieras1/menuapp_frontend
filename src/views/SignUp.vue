@@ -76,7 +76,7 @@ export default {
                     password: this.password
                 }
                 axios
-                    .post("https://a-y-a-menu.herokuapp.com/api/v1/users/", formData) //TODO: CREATE LIST ON THE BACKEND
+                    .post("/api/v1/users/", formData) //TODO: CREATE LIST ON THE BACKEND
                     .then(response => {
                         toast({
                             message: 'Account created, please log in!',

@@ -3,7 +3,7 @@ import axios from 'axios'
 
 async function  updateOrderList(order_list) {
   await axios
-  .post('https://a-y-a-menu.herokuapp.com/api/v1/itemslist/', order_list)
+  .post('/api/v1/itemslist/', order_list)
   .then(response => {
     console.log(response)
   })
@@ -15,7 +15,7 @@ async function  updateOrderList(order_list) {
 
 async function  updateSchedule(schedule) {
   await axios
-  .post('https://a-y-a-menu.herokuapp.com/api/v1/schedule/', schedule)
+  .post('/api/v1/schedule/', schedule)
   .then(response => {
     console.log(response)
   })

@@ -42,7 +42,7 @@ export default {
         async performSearch() {
             this.$store.commit('setIsLoading', true)
             await axios
-                .post('https://a-y-a-menu.herokuapp.com/api/v1/products/search/', {'query': this.query})
+                .post('/api/v1/products/search/', {'query': this.query})
                 .then(response => {
                     this.products = response.data
                 })

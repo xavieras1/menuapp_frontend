@@ -106,7 +106,7 @@ export default {
             this.$store.commit('setIsLoading', true)
             const meal_slug = this.$route.params.meal_slug
             await axios
-                .get(`https://a-y-a-menu.herokuapp.com/api/v1/meals/${meal_slug}`)
+                .get(`/api/v1/meals/${meal_slug}`)
                 .then(response => {
                     this.meal = response.data
                     document.title = this.meal.name + ' | MENU A&A'

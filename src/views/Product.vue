@@ -54,7 +54,7 @@ export default {
             const location_slug = this.$route.params.location_slug
             const product_slug = this.$route.params.product_slug
             await axios
-                .get(`https://a-y-a-menu.herokuapp.com/api/v1/products/${location_slug}/${product_slug}`)
+                .get(`/products/${location_slug}/${product_slug}`)
                 .then(response => {
                     this.product = response.data
                     document.title = this.product.name + ' | MENU A&A'
