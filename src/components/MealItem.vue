@@ -40,6 +40,7 @@ export default {
             this.updateSchedule()
         },
         updateSchedule() {
+            this.$store.commit('updateSchedule')
             localStorage.setItem('schedule', JSON.stringify(this.$store.state.schedule))
         },
         removeFromSchedule(item) {

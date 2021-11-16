@@ -58,8 +58,13 @@ export default {
     },
     data() {
         return {
+            pantry: {
+                type: "Pantry",
+                items: [],
+            },
             schedule: {
-                items: []
+                user: 0,
+                items: [],
             }
         }
     },

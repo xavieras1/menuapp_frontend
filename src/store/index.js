@@ -2,9 +2,20 @@ import { createStore } from 'vuex'
 import axios from 'axios'
 
 async function  updateOrderList(order_list) {
-  const data = order_list
   await axios
-  .post('https://a-y-a-menu.herokuapp.com/api/v1/itemslist/', data)
+  .post('https://a-y-a-menu.herokuapp.com/api/v1/itemslist/', order_list)
+  .then(response => {
+    console.log(response)
+  })
+  .catch(error => {
+    this.errors.push('Something went wrong. Please try again')
+    console.log(error)
+  })
+}
+
+async function  updateSchedule(schedule) {
+  await axios
+  .post('https://a-y-a-menu.herokuapp.com/api/v1/schedule/', schedule)
   .then(response => {
     console.log(response)
   })
@@ -79,13 +90,6 @@ export default createStore({
       updateOrderList(state.cart)
       localStorage.setItem('cart', JSON.stringify(state.cart))
     },
-    updateOrderList(state, type) {
-      if (type==='Cart') {
-        updateOrderList(state.cart)
-      }else if (type==='Pantry'){
-        updateOrderList(state.pantry)
-      }
-    },
     addToSchedule(state, item) {
       const exists = state.schedule.items.filter(i => (i.meal.id === item.meal.id && i.day === item.day && i.shift === item.shift ))
       if (exists.length) {
@@ -98,7 +102,18 @@ export default createStore({
         state.schedule.items.push(item)
       }
 
+      updateSchedule(state.schedule)
       localStorage.setItem('schedule', JSON.stringify(state.schedule))
+    },
+    updateOrderList(state, type) {
+      if (type==='Cart') {
+        updateOrderList(state.cart)
+      }else if (type==='Pantry'){
+        updateOrderList(state.pantry)
+      }
+    },
+    updateSchedule(state) {
+      updateSchedule(state.schedule)
     },
     addMealToCart(item) {
       const products = item.meal.items
