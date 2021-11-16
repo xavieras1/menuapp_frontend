@@ -23,7 +23,7 @@
                             v-for="item in schedule.items"
                             v-bind:key="item.meal.id"
                             v-bind:initialItem="item"
-                            v-on:removeFromCart="removeFromSchedule" />
+                            v-on:removeFromSchedule="removeFromSchedule" />
                     </tbody>
                 </table>
 
@@ -75,7 +75,7 @@ export default {
     },
     methods: {
         removeFromSchedule(item) {
-            this.schedule.items = this.schedule.items.filter(i => i.product.id !== item.product.id)
+            this.schedule.items = this.schedule.items.filter(i => i.meal.id !== item.meal.id)
         },
         checkout() {
             // this.$store.state.schedule - this.$store.state.pantry = this.$store.state.cart
