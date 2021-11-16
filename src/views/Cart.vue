@@ -17,7 +17,7 @@
                     <h1 class="title" v-if="upLength">Up</h1>
                     <tbody v-if="upLength">
                         <ListItem
-                            v-for="item in up.items"
+                            v-for="item in this.cart.items.filter(i => i.product.location === 1)"
                             v-bind:key="item.product.id"
                             v-bind:initialItem="item"
                             v-on:removeFromList="removeFromCart"
@@ -26,7 +26,7 @@
                     <h1 class="title" v-if="downLength">Down</h1>
                     <tbody v-if="downLength">
                         <ListItem
-                            v-for="item in down.items"
+                            v-for="item in this.cart.items.filter(i => i.product.location === 2)"
                             v-bind:key="item.product.id"
                             v-bind:initialItem="item"
                             v-on:removeFromList="removeFromCart"
@@ -65,28 +65,20 @@ export default {
             cart: {
                 type: "Cart",
                 items: []
-            },
-            up: {
-                items: []
-            },
-            down: {
-                items: []
             }
-            
         }
     },
     mounted() {
         this.type = 'Cart'
         document.title = this.type + ' | Djackets'
         this.cart = this.$store.state.cart
-        this.up.items = this.cart.items.filter(i => i.product.location === 1)
-        this.down.items = this.cart.items.filter(i => i.product.location === 2)
     },
     methods: {
         removeFromCart(item) {
             this.cart.items = this.cart.items.filter(i => i.product.id !== item.product.id)
         },
         updateCart() {
+            this.cart.items.sort((a, b) => a.product.order - b.product.order)
             this.$store.commit('updateOrderList', 'Cart')
             localStorage.setItem('cart', JSON.stringify(this.cart))
         }
@@ -98,10 +90,10 @@ export default {
             }, 0)
         },
         upLength() {
-            return this.up.items.length
+            return this.cart.items.filter(i => i.product.location === 1).length
         },
         downLength() {
-            return this.down.items.length
+            return this.cart.items.filter(i => i.product.location === 2).length
         }
     }
 }
